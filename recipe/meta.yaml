@@ -12,7 +12,7 @@ source:
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  skip: true  # [py<310]
+  skip: true  # [py<39]
 
 requirements:
   host:
@@ -26,6 +26,7 @@ requirements:
     - azure-core >=1.37.0
     - typing-extensions >=4.6.0
 
+# Test cannot be running because devtools_testutils is required
 test:
   imports:
     - azure.ai.contentunderstanding
