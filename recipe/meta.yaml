@@ -1,0 +1,50 @@
+{% set name = "azure-ai-contentunderstanding" %}
+{% set version = "1.2.0b2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
+  sha256: 0ccef3c8087759ca788aabcc9af7b22cd8ada2df0236bf63563f4974c2d8cfcd
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<39]
+
+requirements:
+  host:
+    - pip
+    - python
+    - wheel
+    - setuptools >=77.0.3
+  run:
+    - python
+    - isodate >=0.6.1
+    - azure-core >=1.37.0
+    - typing-extensions >=4.6.0
+
+# Test cannot be running because devtools_testutils is required
+test:
+  imports:
+    - azure.ai.contentunderstanding
+    - azure.ai.contentunderstanding.aio
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/contentunderstanding/azure-ai-contentunderstanding
+  summary: Microsoft Corporation Azure AI Content Understanding Client Library for Python
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+  dev_url: https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/contentunderstanding/azure-ai-contentunderstanding
+  doc_url: https://learn.microsoft.com/python/api/overview/azure/ai-contentunderstanding-readme
+
+extra:
+  recipe-maintainers:
+    - rxm7706
